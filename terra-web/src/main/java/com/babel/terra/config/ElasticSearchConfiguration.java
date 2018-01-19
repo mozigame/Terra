@@ -1,6 +1,7 @@
 package com.babel.terra.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
  * User: joey
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Time: 11:48
  */
 @Configuration
+@EnableElasticsearchRepositories(basePackages = "com.babel.terra.es")
 public class ElasticSearchConfiguration {
 
 }
