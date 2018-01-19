@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	default-lazy-init="false">
+
+    <!-- 加载配置文件 -->
+    <!--<context:property-placeholder location="classpath:hermes-*.properties"/>-->
+
+    <!-- 将多个配置文件读取到容器中，交给Spring管理 ->为了直接使用common里面的RedisUtil(偷懒 by roach)-->
+    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:hermes-*.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="customizedPropertyConfigurer"-->
+          <!--class="com.babel.common.core.util.CustomizedPropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:hermes-*.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!-- 扫描文件 -->
+    <context:annotation-config/>
+    <!-- 配置要扫描的包 -->
+    <context:component-scan base-package="com.babel.terra" />
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
+    <!--</context:component-scan>-->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
+
+	<import resource="spring-mybatis-order.xml" />
+	<import resource="spring-mybatis-venus.xml" />
+	<import resource="spring-mybatis-kd.xml" />
+	<import resource="spring-mybatis-basedata.xml" />
+	<import resource="spring-mybatis-payment.xml" />
+	<!--<import resource="spring-cache-redis.xml" />-->
+	<!--<import resource="mongo-db-hermes.xml" />-->
+
+
+    <!-- 这个类，容器启动时加载，以便于加载系统参数到map -->
+    <bean class="com.babel.basedata.util.SysconfigsLoadListener"/>
+
+    <bean class="com.babel.common.core.service.impl.InjectBeanSelfProcessor"/>
+    <bean class="com.babel.basedata.util.Sysconfigs">
+        <property name="sysconfigService" ref="sysconfigService"/>
+    </bean>
+    <bean id="springContextUtil" class="com.babel.common.core.util.SpringContextUtil"/>
+
+    <!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
+    <bean id="logServiceAspect" class="com.babel.basedata.logger.LogServiceAspect"/>
+    <bean id="logAspect" class="com.babel.common.web.loader.LogAuditAspect"/>
+    <bean id="hermesLogAspect" class="com.babel.hermes.aop.logging.HermesLogAspect"/>
+    <aop:aspectj-autoproxy proxy-target-class="true" >
+        <aop:include name="logAspect" />
+        <aop:include name="logServiceAspect" />
+        <aop:include name="hermesLogAspect" />
+    </aop:aspectj-autoproxy>
+
+
+    <!--schedule lock spring扫描-->
+    <import resource="classpath*:spring/spring-schedule-lock.xml"/>
+</beans>
