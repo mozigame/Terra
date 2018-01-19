@@ -1,9 +1,9 @@
 
-spring:
-  data:
-    elasticsearch:
-      cluster-name: my-es-dog
-      cluster-nodes: 192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300
+#spring:
+#  data:
+#    elasticsearch:
+#      cluster-name: my-es-dog
+#      cluster-nodes: 192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300
 server:
   port: 8081
 logging:

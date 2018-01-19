@@ -45,35 +45,7 @@
 
 	<!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
 
-	<import resource="spring-mybatis-order.xml" />
-	<import resource="spring-mybatis-venus.xml" />
-	<import resource="spring-mybatis-kd.xml" />
-	<import resource="spring-mybatis-basedata.xml" />
-	<import resource="spring-mybatis-payment.xml" />
-	<!--<import resource="spring-cache-redis.xml" />-->
-	<!--<import resource="mongo-db-hermes.xml" />-->
+	<import resource="classpath:spring/spring-elasticsearch.xml" />
 
 
-    <!-- 这个类，容器启动时加载，以便于加载系统参数到map -->
-    <bean class="com.babel.basedata.util.SysconfigsLoadListener"/>
-
-    <bean class="com.babel.common.core.service.impl.InjectBeanSelfProcessor"/>
-    <bean class="com.babel.basedata.util.Sysconfigs">
-        <property name="sysconfigService" ref="sysconfigService"/>
-    </bean>
-    <bean id="springContextUtil" class="com.babel.common.core.util.SpringContextUtil"/>
-
-    <!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
-    <bean id="logServiceAspect" class="com.babel.basedata.logger.LogServiceAspect"/>
-    <bean id="logAspect" class="com.babel.common.web.loader.LogAuditAspect"/>
-    <bean id="hermesLogAspect" class="com.babel.hermes.aop.logging.HermesLogAspect"/>
-    <aop:aspectj-autoproxy proxy-target-class="true" >
-        <aop:include name="logAspect" />
-        <aop:include name="logServiceAspect" />
-        <aop:include name="hermesLogAspect" />
-    </aop:aspectj-autoproxy>
-
-
-    <!--schedule lock spring扫描-->
-    <import resource="classpath*:spring/spring-schedule-lock.xml"/>
 </beans>
