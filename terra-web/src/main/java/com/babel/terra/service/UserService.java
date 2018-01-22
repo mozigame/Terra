@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -13,11 +14,14 @@ public class UserService {
     @Resource
     private UserEsService userEsService;
 
-    private ElasticsearchTemplate elasticsearchTemplate;
-
     public boolean saveUser(UserPO userPO) {
         userEsService.save(userPO);
         return true;
+    }
+
+    public UserPO get(String id) {
+        Optional<UserPO> optional = userEsService.findById(id);
+        return optional.orElse(null);
     }
 
 }

@@ -68,6 +68,10 @@
     <!--控制mongo里面的请求日志打印-->
     <logger name="org.springframework.data.mongodb.core" level="DEBUG"/>
 
+    <!-- elasticsearch-->
+    <logger name="org.springframework.data.elasticsearch" level="DEBUG"/>
+    <logger name="org.elasticsearch" level="DEBUG"/>
+
     <!--kafka-->
     <logger name="org.apache.kafka" level="INFO"/>
 

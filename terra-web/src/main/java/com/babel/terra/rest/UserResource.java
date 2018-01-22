@@ -2,10 +2,7 @@ package com.babel.terra.rest;
 
 import com.babel.terra.po.UserPO;
 import com.babel.terra.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,5 +34,13 @@ public class UserResource {
         userPO.setAddress(address);
         userPO.setAge(age);
         return userService.saveUser(userPO);
+    }
+
+
+    @GetMapping(value = "/get")
+    private UserPO get(
+            @RequestParam(name = "id", required = false) String id
+    ) {
+        return userService.get(id);
     }
 }

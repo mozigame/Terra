@@ -1,5 +1,6 @@
 package com.babel.terra;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableAutoConfiguration
 //@PropertySource(value = {"classpath:codis-crius.properties", "classpath:crius-db.properties", "classpath:crius-kafka.properties",
 //        "classpath:crius-mongo.properties", "classpath:dubbo.properties", "classpath:crius-config.properties"})
-@ImportResource(value = {"classpath:spring/spring-applications.xml"})
+//@ImportResource(value = {"classpath:spring/spring-applications.xml"})
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -28,5 +29,8 @@ public class Application {
         logger.info("start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //        System.setProperty("user.timezone", "America/New_York");
         SpringApplication.run(Application.class, args);
+
+
+
     }
 }

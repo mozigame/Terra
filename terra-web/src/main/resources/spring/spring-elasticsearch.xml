@@ -7,7 +7,9 @@
 
     <elasticsearch:repositories base-package="com.babel.terra.es"/>
 
-    <elasticsearch:transport-client id="client" cluster-nodes="192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300" />
+    <elasticsearch:transport-client id="client"
+                                    cluster-nodes="192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300"
+                                    cluster-name="my-es-dogs"/>
 
     <bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
         <constructor-arg name="client" ref="client"/>
