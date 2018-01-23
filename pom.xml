@@ -27,6 +27,7 @@
         <commons-parent.version>1.0.0-SNAPSHOT</commons-parent.version>
         <compile.jdk.version>1.8</compile.jdk.version>
         <kotlin.version>1.1.2-4</kotlin.version>
+        <querydsl.version>4.1.4</querydsl.version>
     </properties>
 
     <!--<parent>-->
@@ -48,6 +49,22 @@
                 <groupId>com.babel.terra</groupId>
                 <artifactId>terra-service</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.babel.common</groupId>
+                <artifactId>common-core</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <!--<exclusion>-->
+                    <!--<groupId>redis.clients</groupId>-->
+                    <!--<artifactId>jedis</artifactId>-->
+                    <!--</exclusion>-->
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -285,6 +302,20 @@
                 <scope>test</scope>
             </dependency>
             <!-- end of spring -->
+
+
+            <!--query dsl-->
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+            <!--query dsl end-->
 
             <dependency>
                 <groupId>javax.servlet</groupId>

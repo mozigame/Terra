@@ -190,9 +190,22 @@ under the License.
 
         <mirror>
             <id>public</id>
-            <mirrorOf>*</mirrorOf>
+            <mirrorOf>center</mirrorOf>
             <name>Public Repositories</name>
             <url>http://maven.blr58589.com/nexus/content/groups/public</url>
+        </mirror>
+
+        <mirror>
+            <mirrorOf>center</mirrorOf>
+            <id>repository.springframework.maven.milestone</id>
+            <name>Spring Framework Maven Milestone Repository</name>
+            <url>http://repo.spring.io/milestone/</url>
+        </mirror>
+        <mirror>
+            <mirrorOf>center</mirrorOf>
+            <id>repository.springframework.maven.snapshot</id>
+            <name>Spring Framework Maven Snapshot Repository</name>
+            <url>http://repo.spring.io/snapshot/</url>
         </mirror>
         <!-- -->
     </mirrors>

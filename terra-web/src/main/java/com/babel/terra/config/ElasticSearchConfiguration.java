@@ -15,9 +15,9 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.babel.terra.es")
 public class ElasticSearchConfiguration {
 
-//    @Bean
-//    public ElasticsearchTemplate getElasticsearchTemplate(Client client) {
-//        return new ElasticsearchTemplate(client);
-//    }
+    @Bean
+    public ElasticsearchTemplate getElasticsearchTemplate(Client client) {
+        return new ElasticsearchTemplate(client);
+    }
 
 }
