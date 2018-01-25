@@ -60,8 +60,8 @@
     <logger name="sun.net.www" level="INFO"/>
     <logger name="sun.rmi.transport" level="WARN"/>
     <!--打印所有的http接口-->
-    <logger name="org.springframework.boot.actuate.endpoint" level="INFO"/>
-    <logger name="org.springframework.web.servlet.mvc" level="INFO"/>
+    <logger name="org.springframework.boot.actuate.endpoint" level="DEBUG"/>
+    <logger name="org.springframework.web.servlet.mvc" level="DEBUG"/>
     <!--mongo-->
     <logger name="org.mongodb.driver.protocol.command" level="INFO"/>
     <logger name="org.mongodb.driver.cluster" level="INFO"/>

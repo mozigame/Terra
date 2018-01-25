@@ -22,7 +22,7 @@ public class UserResource {
     @RequestMapping("/get/ip")
     public String getIp(HttpServletRequest request) {
         String ip = request.getRemoteHost();
-        System.out.println(""+discoveryClient.getLocalServiceInstance().getServiceId()+"/"+discoveryClient.getServices());
+        System.out.println(""+discoveryClient.getServices());
         return ip;
     }
 

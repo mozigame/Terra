@@ -11,12 +11,14 @@ server:
 logging:
   config: classpath:logback-spring.xml
 
-jhipster:
-    registry:
-        password: admin
+
 eureka: 
     client:
         service-url:
            defaultZone: http://admin:${jhipster.registry.password}@192.168.0.217:8761/eureka/
     instance:
         appname: terra
+        
+ribbon:
+    eureka:
+        enabled: true
