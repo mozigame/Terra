@@ -1,5 +1,6 @@
 package com.babel.terra.rest;
 
+import com.babel.terra.config.CustomerConfig;
 import com.babel.terra.po.UserPO;
 import com.babel.terra.service.UserService;
 import com.babel.terra.vo.PageVo;
@@ -18,11 +19,18 @@ public class UserResource {
 
     @Resource
     private UserService userService;
+    
+    @Resource
+    private DiscoveryClient discoveryClient;
+    
+    @Resource
+    private CustomerConfig customerConfig;
 
     @RequestMapping("/get/ip")
     public String getIp(HttpServletRequest request) {
         String ip = request.getRemoteHost();
-        System.out.println(""+discoveryClient.getServices());
+        System.out.println("services="+discoveryClient.getServices());
+        System.err.println("runType="+customerConfig.getRunType());
         return ip;
     }
 
@@ -57,8 +65,6 @@ public class UserResource {
         return userService.updateUser(userPO);
     }
     
-    @Resource
-    private DiscoveryClient discoveryClient;
 
 
     @GetMapping(value = "/get")
