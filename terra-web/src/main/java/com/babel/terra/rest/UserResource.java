@@ -3,6 +3,8 @@ package com.babel.terra.rest;
 import com.babel.terra.po.UserPO;
 import com.babel.terra.service.UserService;
 import com.babel.terra.vo.PageVo;
+
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +22,7 @@ public class UserResource {
     @RequestMapping("/get/ip")
     public String getIp(HttpServletRequest request) {
         String ip = request.getRemoteHost();
+        System.out.println(""+discoveryClient.getLocalServiceInstance().getServiceId()+"/"+discoveryClient.getServices());
         return ip;
     }
 
@@ -53,6 +56,9 @@ public class UserResource {
         userPO.setAge(age);
         return userService.updateUser(userPO);
     }
+    
+    @Resource
+    private DiscoveryClient discoveryClient;
 
 
     @GetMapping(value = "/get")

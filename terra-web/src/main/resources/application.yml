@@ -1,0 +1,22 @@
+spring:
+  application: 
+        name: terra
+  data: 
+    elasticsearch:
+      cluster-name: my-es-dogs
+      cluster-nodes: 192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300
+      
+server:
+  port: 8081
+logging:
+  config: classpath:logback-spring.xml
+
+jhipster:
+    registry:
+        password: admin
+eureka: 
+    client:
+        service-url:
+           defaultZone: http://admin:${jhipster.registry.password}@192.168.0.217:8761/eureka/
+    instance:
+        appname: terra
