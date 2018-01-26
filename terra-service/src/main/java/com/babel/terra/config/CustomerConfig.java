@@ -21,10 +21,7 @@ public class CustomerConfig {
 	 * 配置见注册中心的git
 	 */
 	 private Integer lotteryRunSideType;
-	 /**
-	  * www.baidu.com|plat_owner_test
-	  */
-	 private List<String> domainAppidBinds;//真实会员平台商appid配置
+
 	 /**
 	  * 权限资源配置
 	  * exp:/v2/api-docs|ROLE_ADMIN
@@ -33,30 +30,6 @@ public class CustomerConfig {
 	 private List<String> whiteIpList; 
 	private boolean orderSaveBatchRunType;
 
-	/**
-	 * @return the domainAppidBinds
-	 */
-	public List<String> getDomainAppidBinds() {
-		return domainAppidBinds;
-	}
-
-	/**
-	 * @param domainAppidBinds the domainAppidBinds to set
-	 */
-	public void setDomainAppidBinds(List<String> domainAppidBinds) {
-		this.domainAppidBinds = domainAppidBinds;
-		domainAppidMap= getDomainAppidListToMap(domainAppidBinds);
-	}
-	
-	private Map<String, String> domainAppidMap=new HashMap<>();
-	private Map<String, String> getDomainAppidMap(){
-		if(domainAppidMap.isEmpty()){
-			domainAppidMap= getDomainAppidListToMap(domainAppidBinds);
-			log.info("-----domainAppidBinds="+domainAppidBinds
-					 +"\n domainAppidMap="+domainAppidMap);
-		}
-		return domainAppidMap;
-	}
 
 	
 
