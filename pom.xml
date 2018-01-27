@@ -39,6 +39,7 @@
     <modules>
         <module>terra-api</module>
         <module>terra-service</module>
+        <module>terra-resource</module>
         <module>terra-web</module>
     </modules>
 
@@ -48,6 +49,11 @@
             <dependency>
                 <groupId>com.babel.terra</groupId>
                 <artifactId>terra-service</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.babel.terra</groupId>
+                <artifactId>terra-resource</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
