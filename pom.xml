@@ -458,14 +458,12 @@
             <url>http://maven.blr58589.com/nexus/content/repositories/releases</url>
         </repository>
         <repository>
-            <id>repository.springframework.maven.milestone</id>
-            <name>Spring Framework Maven Milestone Repository</name>
-            <url>http://repo.spring.io/milestone/</url>
-        </repository>
-        <repository>
-            <id>repository.springframework.maven.snapshot</id>
-            <name>Spring Framework Maven Snapshot Repository</name>
-            <url>http://repo.spring.io/snapshot/</url>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
