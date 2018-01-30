@@ -68,7 +68,6 @@ public class UserOrderPO implements Serializable, Cloneable {
     /**
      * 日期
      */
-//    @Indexed
     private Long pdate;
 
     /**
