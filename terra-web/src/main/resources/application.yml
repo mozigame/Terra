@@ -7,7 +7,7 @@ spring:
       cluster-nodes: 192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300
       
 server:
-  port: 8096
+  port: 8095
 logging:
   config: classpath:logback-spring.xml
 
