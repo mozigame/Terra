@@ -29,7 +29,6 @@ public class KafkaUserResource {
             @RequestParam(name = "address", required = false) String address
     ) {
 
-        System.out.println(System.getenv("HADOOP_HOME") );
         UserPO userPO = new UserPO();
         userPO.setId(id);
         userPO.setName(name);

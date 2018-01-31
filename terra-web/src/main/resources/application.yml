@@ -21,8 +21,9 @@ spring:
       batch-size: 16384
       buffer-memory: 33554432
       bootstrap-servers: 202.153.207.179:8092,202.153.207.181:8092,202.153.207.182:8092
+      acks: 1
     listener:
-      poll-timeout: 15000ms
+      poll-timeout: 15s
 
 server:
   port: 8095
