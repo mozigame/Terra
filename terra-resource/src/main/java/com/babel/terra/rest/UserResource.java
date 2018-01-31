@@ -85,7 +85,7 @@ public class UserResource {
     }
 
 
-    @GetMapping(value = "/query_list")
+    @GetMapping(value = "/api/user/query_list")
     public PageVo<UserPO> query_list(
             @RequestParam(name = "id", required = false) String id,
             @RequestParam(name = "name", required = false) String name,
