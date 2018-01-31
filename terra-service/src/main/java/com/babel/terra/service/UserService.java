@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.babel.terra.es.UserEsService;
 import com.babel.terra.po.UserPO;
 import com.babel.terra.vo.PageVo;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import org.apache.commons.lang.StringUtils;
@@ -17,10 +18,14 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Optional;
+
+import static com.babel.terra.enums.KafkaConf.USER_TOPIC;
 
 @Service
 public class UserService {
@@ -29,6 +34,8 @@ public class UserService {
     private UserEsService userEsService;
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     public boolean saveUser(UserPO userPO) {
         userEsService.save(userPO);
@@ -93,4 +100,7 @@ public class UserService {
         return pageVo;
     }
 
+    public String sendMsg(UserPO userPO) {
+        return JSON.toJSONString(kafkaTemplate.send(USER_TOPIC, JSON.toJSONString(userPO)));
+    }
 }

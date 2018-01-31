@@ -5,7 +5,25 @@ spring:
     elasticsearch:
       cluster-name: my-es-dogs
       cluster-nodes: 192.168.0.213:9300,192.168.0.223:9300,192.168.0.220:9300
-      
+  kafka:
+    consumer:
+      bootstrap-servers: 202.153.207.179:8092,202.153.207.181:8092,202.153.207.182:8092
+      enable-auto-commit: true
+      auto-commit-interval: 100ms
+      auto-offset-reset: latest
+      group-id: terra_group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      bootstrap-servers: 202.153.207.179:8092,202.153.207.181:8092,202.153.207.182:8092
+    listener:
+      poll-timeout: 15000ms
+
 server:
   port: 8095
 logging:
