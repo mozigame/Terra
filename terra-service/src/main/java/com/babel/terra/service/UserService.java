@@ -1,9 +1,9 @@
 package com.babel.terra.service;
 
 import com.alibaba.fastjson.JSON;
+import com.babel.common.core.page.PageVO;
 import com.babel.terra.es.UserEsService;
 import com.babel.terra.po.UserPO;
-import com.babel.terra.vo.PageVo;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
@@ -20,15 +20,11 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.SettableListenableFuture;
 
 import javax.annotation.Resource;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import static com.babel.terra.enums.KafkaConf.USER_TOPIC;
 
@@ -63,7 +59,7 @@ public class UserService {
         return optional.orElse(null);
     }
 
-    public PageVo<UserPO> queryList(UserPO userPO, int page, int rows) {
+    public PageVO<UserPO> queryList(UserPO userPO, int page, int rows) {
         System.out.println(JSON.toJSONString(userPO));
         Criteria criteria = new Criteria();
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
@@ -99,16 +95,14 @@ public class UserService {
         System.out.println(JSON.toJSONString(pageResult.getContent()));
         System.out.println(JSON.toJSONString(pageResult_1.getContent()));
 
-        PageVo<UserPO> pageVo = new PageVo<>();
-        pageVo.setSize(rows);
-        pageVo.setPage(page);
-        pageVo.setTotal(pageResult.getTotalElements());
-        pageVo.setData(pageResult.getContent());
+        PageVO<UserPO> pageVo = new PageVO<>(page, rows);
+        pageVo.setTotal((int) pageResult.getTotalElements());
+        pageVo.setRows(pageResult.getContent());
         return pageVo;
     }
 
     public String sendMsg(UserPO userPO) {
-        ListenableFuture<SendResult<String, String>> resultListenableFuture =  kafkaTemplate.send(USER_TOPIC, userPO.getId(), JSON.toJSONString(userPO));
+        ListenableFuture<SendResult<String, String>> resultListenableFuture = kafkaTemplate.send(USER_TOPIC, userPO.getId(), JSON.toJSONString(userPO));
         try {
             resultListenableFuture.isDone();
             SendResult<String, String> result = resultListenableFuture.get();
@@ -118,4 +112,6 @@ public class UserService {
         }
         return JSON.toJSONString(resultListenableFuture);
     }
+
+
 }

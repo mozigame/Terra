@@ -16,13 +16,21 @@ public class CashFlow {
 
     private Long cid;
 
-    private Long orderOperId;   //注单操作id
+    private String cashFlowId;  //金流id
+
+    private String orderOperId;   //注单操作id
 
     private Long lotteryId; //彩种id
 
     private Long platInfoId;    //平台商id
 
     private Long memberId;  //会员id
+    private String memberName;  //会员账号
+
+    private Long agentId;   //代理id
+    private String agentName;   //代理账号
+
+    private Integer levelId;   //层级id
 
     private Long playId;    //玩法id
 
@@ -51,5 +59,6 @@ public class CashFlow {
      * 订单真实期号
      */
     private String issueAlias;
+
 
 }

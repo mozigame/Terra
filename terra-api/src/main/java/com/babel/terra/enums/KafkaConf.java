@@ -12,11 +12,11 @@ import java.util.Map;
 public class KafkaConf {
 
 
-    public static final String TOPICS [] = new String[]{"plutus", "hera"};
+    public static final String TOPICS[] = new String[]{"plutus", "hera"};
 
     public static final String DATA = "Data";
 
-    public static final String DATA_TYPE="DataType";
+    public static final String DATA_TYPE = "DataType";
 
     public static final String CAPITAL_GROUP = "capital_group";
     /**
@@ -24,42 +24,15 @@ public class KafkaConf {
      */
     public static final String RECORD = "Record";
 
-    public static final String USER_TOPIC="user_topic";
-   
-
+    public static final String USER_TOPIC = "user_topic";
     /**
-     * kafka消费的数据类型
+     * 会员金流，出入款
      */
-    public enum DataType {
+    public static final String MEMBER_TRADE_TOPIC = "ARES_MEMBER_TRADE";
+    /**
+     * 订单金流
+     */
+    public static final String ORDER_FLOW_TOPIC = "ARES_ORDER_FLOW";
 
-        ;    
 
-        private static Map<Integer, DataType> map = new HashMap<>();
-
-        static {
-            for (DataType kafkaType : DataType.values()) {
-                map.put(kafkaType.type(), kafkaType);
-            }
-        }
-
-        private Integer type;
-
-        private String typeName;
-
-        DataType(Integer type,String typeName) {
-            this.type = type;
-            this.typeName = typeName;
-        }
-
-        public Integer type() {
-            return type;
-        }
-        public String typeName() {
-            return typeName;
-        }
-
-        public static DataType parse(Integer type) {
-            return map.get(type);
-        }
-    }
 }

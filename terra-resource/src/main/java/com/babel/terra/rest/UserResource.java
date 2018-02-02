@@ -1,11 +1,11 @@
 package com.babel.terra.rest;
 
+import com.babel.common.core.page.PageVO;
 import com.babel.terra.TerraServer;
 import com.babel.terra.config.CustomerConfig;
 import com.babel.terra.feign.TerraFeign;
 import com.babel.terra.po.UserPO;
 import com.babel.terra.service.UserService;
-import com.babel.terra.vo.PageVo;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +20,10 @@ public class UserResource {
 
     @Resource
     private UserService userService;
-    
+
     @Resource
     private DiscoveryClient discoveryClient;
-    
+
     @Resource
     private CustomerConfig customerConfig;
 
@@ -33,14 +33,14 @@ public class UserResource {
     @RequestMapping(TerraServer.USER_GET_IP)
     public String getIp(HttpServletRequest request) {
         String ip = request.getRemoteHost();
-        System.out.println("services="+discoveryClient.getServices());
-        System.err.println("runType="+customerConfig.getRunType());
+        System.out.println("services=" + discoveryClient.getServices());
+        System.err.println("runType=" + customerConfig.getRunType());
         return ip;
     }
 
-    @RequestMapping(TerraServer.USER_GET_IP+"Feign")
+    @RequestMapping(TerraServer.USER_GET_IP + "Feign")
     public String getIpFeign(HttpServletRequest request) {
-       return terraFeign.getIp();
+        return terraFeign.getIp();
     }
 
     @PostMapping(value = "/api/user/add")
@@ -73,7 +73,6 @@ public class UserResource {
         userPO.setAge(age);
         return userService.updateUser(userPO);
     }
-    
 
 
     @GetMapping(value = "/api/user/get")
@@ -85,7 +84,7 @@ public class UserResource {
 
 
     @GetMapping(value = "/api/user/query_list")
-    public PageVo<UserPO> query_list(
+    public PageVO<UserPO> query_list(
             @RequestParam(name = "id", required = false) String id,
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "age", required = false) Integer age,
@@ -100,7 +99,6 @@ public class UserResource {
         po.setAge(age);
         return userService.queryList(po, page, rows);
     }
-
 
 
 }

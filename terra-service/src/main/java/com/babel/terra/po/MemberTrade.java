@@ -1,5 +1,6 @@
 package com.babel.terra.po;
 
+import com.babel.terra.enums.BaseFlowType;
 import lombok.Data;
 
 /**
@@ -162,5 +163,23 @@ public class MemberTrade {
 
     //结束时间
     private Long endTime;
+
+    public static MemberTrade parse(CashFlowBase t) {
+        MemberTrade cb = new MemberTrade();
+        cb.setOrderNo(t.getId());
+        cb.setPlatInfoId(t.getPlatInfoId());
+        cb.setMemberId(t.getMemberId());
+        cb.setMemberName(t.getMemberName());
+        cb.setAgentId(t.getAgentId());
+        cb.setAgentName(t.getAgentName());
+        if (t.getLevelId() != null) {
+            cb.setLevelId(Long.valueOf(t.getLevelId()));
+        }
+        cb.setTradeType(t.getTradeType());
+        cb.setTradeAmount(t.getAmount());
+        cb.setBalance(t.getBalance());
+        cb.setCreateTime(t.getCreateTime());
+        return cb;
+    }
 
 }
