@@ -2,6 +2,7 @@ package com.babel.terra.kafka.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.babel.common.kafka.KafkaConstants;
 import com.babel.terra.enums.KafkaConf;
 import com.babel.terra.po.CashFlowBase;
 import com.babel.terra.po.MemberTrade;
@@ -30,7 +31,7 @@ public class MemberTradeKafkaListener {
     @Resource
     private MemberTradeHbService memberTradeHbService;
 
-    @KafkaListener(topics = KafkaConf.MEMBER_TRADE_TOPIC)
+    @KafkaListener(topics = KafkaConstants.MEMBER_TRADE_TOPIC)
     public void memberTradeListener(ConsumerRecord<?, ?> record) {
         if (record.value() != null) {
             try {

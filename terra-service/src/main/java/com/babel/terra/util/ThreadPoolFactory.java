@@ -12,6 +12,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolFactory {
 
-    public static ExecutorService THREAD_POOL = new ThreadPoolExecutor(5, 20, 10, TimeUnit.SECONDS,
+    public static ExecutorService THREAD_POOL = new ThreadPoolExecutor(7, 20, 10, TimeUnit.SECONDS,
             new ArrayBlockingQueue<>(100), new ThreadPoolExecutor.CallerRunsPolicy());
 }

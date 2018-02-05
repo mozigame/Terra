@@ -2,6 +2,7 @@ package com.babel.terra.kafka.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.babel.common.kafka.KafkaConstants;
 import com.babel.terra.enums.KafkaConf;
 import com.babel.terra.po.CashFlow;
 import com.babel.terra.po.CashFlowBase;
@@ -31,7 +32,7 @@ public class CashFlowKafkaListener {
     @Resource
     private CashFlowHbService cashFlowHbService;
 
-    @KafkaListener(topics = KafkaConf.ORDER_FLOW_TOPIC)
+    @KafkaListener(topics = KafkaConstants.ORDER_FLOW_TOPIC)
     public void cashFlowListener(ConsumerRecord<?, ?> record) {
         if (record.value() != null) {
             try {

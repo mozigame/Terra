@@ -64,29 +64,34 @@ public class CashFlowHbService {
     }
 
     public List<CashFlow> queryList(List<String> cashFlowIds) {
-        return hbaseTemplate.execute(HbaseTableInfo.CASH_FLOW_TB_NAME, action -> {
-            List<Get> gets = new ArrayList<>();
-            cashFlowIds.forEach(rk -> {
-                Get get = new Get(Bytes.toBytes(rk));
-                get.addColumn(Bytes.toBytes(HbaseTableInfo.CASH_FLOW_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
-                gets.add(get);
-            });
-            Result[] cashFlows = action.get(gets);
-            List<CashFlow> cashFlowList = new ArrayList<>();
-            for (Result r : cashFlows) {
-                List<Cell> cells = r.getColumnCells(Bytes.toBytes(HbaseTableInfo.CASH_FLOW_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
-                if (cells != null && cells.size() > 0) {
-                    cells.forEach(cell -> {
-                        byte[] value = CellUtil.cloneValue(cell);
-                        if (value.length > 0) {
-                            CashFlow cf = JSONObject.parseObject(Bytes.toString(value), CashFlow.class);
-                            cashFlowList.add(cf);
-                        }
-                        log.info("--> batch get cash_flow : {}", Bytes.toString(cell.getRowArray(), cell.getRowOffset(), cell.getRowLength()) + " Value: " + Bytes.toString(CellUtil.cloneValue(cell)));
-                    });
+        try {
+            return hbaseTemplate.execute(HbaseTableInfo.CASH_FLOW_TB_NAME, action -> {
+                List<Get> gets = new ArrayList<>();
+                cashFlowIds.forEach(rk -> {
+                    Get get = new Get(Bytes.toBytes(rk));
+                    get.addColumn(Bytes.toBytes(HbaseTableInfo.CASH_FLOW_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
+                    gets.add(get);
+                });
+                Result[] cashFlows = action.get(gets);
+                List<CashFlow> cashFlowList = new ArrayList<>();
+                for (Result r : cashFlows) {
+                    List<Cell> cells = r.getColumnCells(Bytes.toBytes(HbaseTableInfo.CASH_FLOW_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
+                    if (cells != null && cells.size() > 0) {
+                        cells.forEach(cell -> {
+                            byte[] value = CellUtil.cloneValue(cell);
+                            if (value.length > 0) {
+                                CashFlow cf = JSONObject.parseObject(Bytes.toString(value), CashFlow.class);
+                                cashFlowList.add(cf);
+                            }
+                            log.info("--> batch get cash_flow : {}", Bytes.toString(cell.getRowArray(), cell.getRowOffset(), cell.getRowLength()) + " Value: " + Bytes.toString(CellUtil.cloneValue(cell)));
+                        });
+                    }
                 }
-            }
-            return cashFlowList;
-        });
+                return cashFlowList;
+            });
+        } catch (Exception e) {
+            log.error("--> bat get HBase cashFlow error :" + cashFlowIds, e);
+        }
+        return null;
     }
 }

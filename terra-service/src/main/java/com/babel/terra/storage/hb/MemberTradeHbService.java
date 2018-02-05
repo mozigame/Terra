@@ -6,6 +6,7 @@ import com.babel.terra.common.HbaseTableInfo;
 import com.babel.terra.po.CashFlow;
 import com.babel.terra.po.MemberTrade;
 import com.babel.terra.util.ThreadPoolFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.client.Get;
@@ -63,24 +64,36 @@ public class MemberTradeHbService {
     }
 
     public List<MemberTrade> queryList(List<String> orderNos) {
-        hbaseTemplate.execute(HbaseTableInfo.MEMBER_TRADE_TB_NAME, action -> {
-            List<Get> gets = new ArrayList<>();
-            orderNos.forEach(rk -> {
-                Get get = new Get(Bytes.toBytes(rk));
-                get.addColumn(Bytes.toBytes(HbaseTableInfo.MEMBER_TRADE_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
-                gets.add(get);
-            });
-            Result[] cashFlows = action.get(gets);
-            for (Result r : cashFlows) {
-                List<Cell> cells = r.getColumnCells(Bytes.toBytes(HbaseTableInfo.MEMBER_TRADE_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
-                if (cells != null && cells.size() > 0) {
-                    cells.forEach(cell -> {
-                        log.info("--> batch get member_trade : {}", Bytes.toString(cell.getRowArray(), cell.getRowOffset(), cell.getRowLength()) + " Value: " + Bytes.toString(CellUtil.cloneValue(cell)));
-                    });
+        try {
+            return hbaseTemplate.execute(HbaseTableInfo.MEMBER_TRADE_TB_NAME, action -> {
+                List<Get> gets = new ArrayList<>();
+                orderNos.forEach(rk -> {
+                    if (StringUtils.isNotBlank(rk)) {
+                        Get get = new Get(Bytes.toBytes(rk));
+                        get.addColumn(Bytes.toBytes(HbaseTableInfo.MEMBER_TRADE_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
+                        gets.add(get);
+                    }
+                });
+                Result[] cashFlows = action.get(gets);
+                List<MemberTrade> memberTrades = new ArrayList<>();
+                for (Result r : cashFlows) {
+                    List<Cell> cells = r.getColumnCells(Bytes.toBytes(HbaseTableInfo.MEMBER_TRADE_FAMILY_NAME), Bytes.toBytes(HbaseTableInfo.GATHER_DETAIL));
+                    if (cells != null && cells.size() > 0) {
+                        cells.forEach(cell -> {
+                            byte[] value = CellUtil.cloneValue(cell);
+                            if (value.length > 0) {
+                                MemberTrade mt = JSONObject.parseObject(Bytes.toString(value), MemberTrade.class);
+                                memberTrades.add(mt);
+                            }
+                            log.info("--> batch get member_trade : {}", Bytes.toString(cell.getRowArray(), cell.getRowOffset(), cell.getRowLength()) + " Value: " + Bytes.toString(CellUtil.cloneValue(cell)));
+                        });
+                    }
                 }
-            }
-            return null;
-        });
+                return memberTrades;
+            });
+        } catch (Exception e) {
+            log.error("--> bat get HBase memberTrade error :" + orderNos, e);
+        }
         return null;
     }
 
