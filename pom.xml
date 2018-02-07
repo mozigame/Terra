@@ -77,6 +77,24 @@
                 <artifactId>common-constant</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            
+            
+            <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.0</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.9.0</version>
+</dependency>
+
+ <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>5.1.1</version>
+        </dependency>
             <!--分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
