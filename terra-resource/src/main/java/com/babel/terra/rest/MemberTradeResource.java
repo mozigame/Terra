@@ -43,7 +43,7 @@ public class MemberTradeResource {
     /**
      * 批量获取HBase中的金流
      * @param ids
-     * @return
+     * @returnto
      */
     @GetMapping(value = "/api/hb/member_trade/batch_get")
     public List<MemberTrade> batchGetHb(

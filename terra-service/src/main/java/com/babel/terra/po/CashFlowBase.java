@@ -88,7 +88,7 @@ public class CashFlowBase {
         cb.setAmount(t.getAmount());
         cb.setBalance(t.getBalance());
         cb.setCreateTime(t.getCreateTime());
-        cb.setModifyTime(t.getModifyUser());
+        cb.setModifyTime(t.getCreateTime());
         return cb;
     }
 
