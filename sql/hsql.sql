@@ -1,3 +1,19 @@
+create table apat(PATENT int,GYEAR int,GDATE int, APPYEAR int, COUNTRY string, POSTATE int,
+                  ASSIGNEE int, ASSCODE int,CLAIMS int, NCLASS int, CAT int, SUBCAT int, CMADE int, CRECEIVE int, RATIOCIT int,
+                  GENERAL int, ORIGINAL int, FWDAPLAG int, BCKGTLAG int, SELFCTUB int, SELFCTLB int, SECDUPBD int, SECDLWBD int)
+  row format delimited
+  FIELDS TERMINATED by ','
+  LINES TERMINATED by '\n'
+  stored as textfile;
+
+
+
+java.lang.IllegalArgumentException: Unable to create serializer "org.apache.hive.com.esotericsoftware.kryo.serializers.FieldSerializer"
+for class: org.apache.hadoop.hive.ql.io.HiveNullValueSequenceFileOutputFormat
+
+
+
+
 drop table hbase_splits;
 CREATE EXTERNAL TABLE IF NOT EXISTS hbase_splits(pdate STRING)
 ROW FORMAT
