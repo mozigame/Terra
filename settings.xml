@@ -207,6 +207,12 @@ under the License.
             <name>Spring Framework Maven Snapshot Repository</name>
             <url>http://repo.spring.io/snapshot/</url>
         </mirror>
+        <mirror>
+            <mirrorOf>center</mirrorOf>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/libs-snapshot</url>
+        </mirror>
         <!-- -->
     </mirrors>
 
@@ -339,6 +345,14 @@ under the License.
                     <id>repository.springframework.maven.snapshot</id>
                     <name>Spring Framework Maven Snapshot Repository</name>
                     <url>http://repo.spring.io/snapshot/</url>
+                </repository>
+                <repository>
+                    <id>spring-snapshots</id>
+                    <name>Spring Snapshots</name>
+                    <url>https://repo.spring.io/libs-snapshot</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
                 </repository>
             </repositories>
         </profile>
